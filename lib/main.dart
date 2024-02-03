@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nurse_app/screens/home_screen.dart';
+import 'package:nurse_app/screens/onboarding-screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      home: const OnboardingScreen(),
     );
   }
 }
@@ -44,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // ignore: use_build_context_synchronously
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => const HomeScreen(),
+        builder: (context) => const OnboardingScreen(),
       ),
     );
   }
