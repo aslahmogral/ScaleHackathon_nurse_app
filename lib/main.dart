@@ -1,67 +1,27 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:nurse_app/screens/home_screen.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:get/get.dart';
+import 'package:nurse_app/firebase_options.dart';
+import 'package:nurse_app/src/repository/authentication_repository/authentication_repository.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'app.dart';
+
+/// ------ For Docs & Updates Check ------
+/// ------------- README.md --------------
+
+Future<void> main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  /// -- README(Update[]) -- GetX Local Storage
+  // Todo: Add Local Storage
+
+  /// -- README(Docs[1]) -- Await Splash until other items Load
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  /// -- README(Docs[2]) -- Initialize Firebase & Authentication Repository
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then((_) => Get.put(AuthenticationRepository()));
+
+  /// -- Main App Starts here (app.dart) ...
+  runApp(const App());
 }
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Splash Screen',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const SplashScreen(),
-    );
-  }
-}
-
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _navigateToNextScreen();
-  }
-
-  _navigateToNextScreen() async {
-    // Simulate a delay, e.g., loading assets or initializing data
-    await Future.delayed(const Duration(seconds: 3));
-
-    // Navigate to the next screen (replace it with your desired screen)
-    // ignore: use_build_context_synchronously
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const HomeScreen(),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Lottie.asset('asset/lottieanimation.json')
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
